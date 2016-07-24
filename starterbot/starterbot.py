@@ -16,7 +16,7 @@ class StarterBot(object):
             attempting_to_donate, the boolean first_donate_message to check if the user in the 
             confirmation section of donation, the slack_client and the BOT_ID
         """
-        #self._mistakes counts how many mistakes someone makes during the #donate process.
+        #self._mistakes counts how many mistakes someone makes during the donate process.
         self._mistakes = 0
         # self._attempting_to_donate will be set to True when the person is having a convo with the bot and is the donate command process
         self._attempting_to_donate = False
@@ -27,10 +27,11 @@ class StarterBot(object):
         self._channel = None
         self._old_command = None
         self._command = None
-        self._bot_responses = ["would you like to #donate to xyz, respond with yes or no", "thanks for donating to xyz",
+        #self._bot_responses is an array containing all the possible responses the bot can say lowercased
+        self._bot_responses = ["would you like to donate to xyz, respond with yes or no", "thanks for donating to xyz",
          "canceling donation. thank you for your time.", "you have made too many mistakes. i'm cancelling the donation",
-         "please respond with either yes to confirm the donation or no to cancel it.", "hello. nice to meet you!",
-         "the available commands are \n*commands* : to list all the possible commands \n*#donate* : to start donating to your favorite charities\n      _ex: #donate to 'name of your charity' $20.00_ \n*hello*, *hi*, *hey*, *sup* : to say hi to the bot!",
+         "please respond with either yes to confirm the donation or no to cancel it.", "sup...", "hello. nice to meet you!",
+         "the available commands are \n*commands* : to list all the possible commands \n*donate* : to start donating to your favorite charities\n      _ex: donate to 'name of your charity' $20.00_ \n*hello*, *hi*, *hey*, *sup* : to say hi to the bot!",
          "not sure what you mean. message starterbot by typing 'commands' to find all the available commands"]
         #Slack client and BOT_ID (arguments)
         self._slack_client = slack_client
@@ -67,9 +68,9 @@ class StarterBot(object):
             are valid commands. If so, then acts on the commands. If not,
             returns back what it needs for clarification.
         """
-        if command.startswith("#donate"):
+        if command.startswith("donate"):
             # make sure it is a valid partner then set attempting_to_donate to true
-            self._response = "Would you like to #donate to XYZ, respond with yes or no"
+            self._response = "Would you like to donate to XYZ, respond with yes or no"
             self._attempting_to_donate = True
             self._first_donate_message_occured = True
         elif command[:3].startswith("yes") and self._attempting_to_donate == True:
@@ -97,8 +98,8 @@ class StarterBot(object):
             self._response = "Hello. Nice to meet you!"
         elif command[:3].startswith("sup") and command[:4].strip() == command[:3]:
             self._response = "sup..."                                             
-        elif command[:7].startswith("commands") and command[:8].strip() == command[:7]:
-            self._response = "The available commands are \n*commands* : to list all the possible commands \n*#donate* : to start donating to your favorite charities\n      _ex: #donate to 'name of your charity' $20.00_ \n*hello*, *hi*, *hey*, *sup* : to say hi to the bot!"                
+        elif command[:8].startswith("commands") and command[:9].strip() == command[:8]:
+            self._response = "The available commands are \n*commands* : to list all the possible commands \n*donate* : to start donating to your favorite charities\n      _ex: donate to 'name of your charity' $20.00_ \n*hello*, *hi*, *hey*, *sup* : to say hi to the bot!"                
         else :
             self._response = "Not sure what you mean. Message starterbot by typing 'commands' to find all the available commands"
             self._attempting_to_donate = False
