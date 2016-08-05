@@ -1,7 +1,7 @@
 # slack_bot
 first attempt at a slack bot using the python-slackclient
 
-The only files that have my code is the donate_bot.py which can be found in the donate_bot folder. You only need to reference this file if you understand how the python-slackclient works. I needed the rest of the files b/c this bot is being ran on the python-slackclient. If you want to review the python-slackclient, check out this https://github.com/slackhq/python-slackclient. 
+The only files that have my code is the donate_bot.py which can be found in the donate_bot folder. You only need to reference this file if you understand how the python-slackclient works. If you want to review the python-slackclient, check out this https://github.com/slackhq/python-slackclient. 
 
 In my code, I export the slack_bot_token and bot_user id. You will have to extract that info from slack when you first create the bot. Once a bot is created, you can get its BOT_ID by running the tester users.list method from api.slack.com. Make sure to copy those values and type in your terminal, export SLACK_BOT_TOKEN='(slack bot token)' and type export BOT_ID='(your bot id)'. Also, you need to run source donate_bot/bin/activate in bash to get the donate_bot activated. Once you have this set up, all you need to do is integrate the bot into your slack team and channels and then run the donate_bot.py in the donate_bot folder in your terminal.
 
