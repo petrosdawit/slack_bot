@@ -203,11 +203,12 @@ class DonateBot(object):
             self._first_donate_message_occured[user] = False   
 
         #posts message 
-        if channel.startswith("D"):            
-            self._slack_client.api_call("chat.postMessage", channel=channel, text=self._response[user], as_user=True)
-        else:
-            self._response[user] = "<@" + self._name[user] + ">:" + self._response[user]
-            self._slack_client.api_call("chat.postMessage", channel=channel, text=self._response[user], as_user=True)            
+        if user != os.environ.get("BOT_ID"): 
+            if channel.startswith("D"):            
+                self._slack_client.api_call("chat.postMessage", channel=channel, text=self._response[user], as_user=True)
+            else:
+                self._response[user] = "<@" + self._name[user] + ">: " + self._response[user]
+                self._slack_client.api_call("chat.postMessage", channel=channel, text=self._response[user], as_user=True)                    
 
     def get_channel_user_from_rtm(self, slack_rtm_output):
         """
